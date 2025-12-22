@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi Bahasa Isyarat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+        body { font-family: sans-serif; text-align: center; background-color: #f0f2f5; }
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        /* Video Container */
+        .video-box { 
+            border: 5px solid #333; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        img { width: 100%; max-width: 640px; display: block; }
+
+        /* Input Container */
+        .input-area { margin-top: 20px; }
+        input[type="text"] {
+            font-size: 24px; padding: 10px; width: 300px;
+            text-align: center; border-radius: 5px; border: 2px solid #007bff;
+        }
+        .status { margin-top: 10px; color: #666; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Input Bahasa Isyarat AI</h1>
+        
+        <div class="video-box">
+            <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+        </div>
+
+        <div class="input-area">
+            <h3>Hasil Input Otomatis:</h3>
+            <input type="text" id="hasilInput" placeholder="Peragakan huruf..." readonly>
+            <br>
+            <button onclick="document.getElementById('hasilInput').value = ''" style="margin-top:10px; padding:5px 15px; cursor:pointer;">Hapus</button>
+        </div>
+        
+        <p class="status">ℹ️ Tahan gerakan tangan selama 3 detik untuk mengetik.</p>
+    </div>
+
+    <script type="text/javascript">
+        var socket = io();
+
+        // Ketika menerima sinyal 'input_huruf' dari Python
+        socket.on('input_huruf', function(data) {
+            console.log("Menerima input: " + data.char);
+            
+            var inputBox = document.getElementById('hasilInput');
+            
+            // Tambahkan huruf ke kolom input
+            inputBox.value += data.char; 
+
+            // Efek visual (kedip kuning)
+            inputBox.style.backgroundColor = "#ffffcc";
+            setTimeout(() => { inputBox.style.backgroundColor = "white"; }, 200);
+        });
+    </script>
+
+</body>
+</html>

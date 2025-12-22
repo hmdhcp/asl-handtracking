@@ -1,0 +1,9 @@
+opencv-python
+cvzone==1.6.1
+mediapipe
+tensorflow
+tf-keras
+numpy<2.0.0
+flask
+flask-socketio
+eventlet
