@@ -9,7 +9,6 @@
         body { font-family: sans-serif; text-align: center; background-color: #f0f2f5; }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
-        /* Video Container */
         .video-box { 
             border: 5px solid #333; 
             border-radius: 10px; 
@@ -19,7 +18,7 @@
         }
         img { width: 100%; max-width: 640px; display: block; }
 
-        /* Input Container */
+        
         .input-area { margin-top: 20px; }
         input[type="text"] {
             font-size: 24px; padding: 10px; width: 300px;
@@ -31,20 +30,20 @@
 <body>
 
     <div class="container">
-        <h1>Input Bahasa Isyarat AI</h1>
+        <h1>Input Bahasa Isyarat</h1>
         
         <div class="video-box">
             <img src="{{ url_for('video_feed') }}" alt="Video Stream">
         </div>
 
         <div class="input-area">
-            <h3>Hasil Input Otomatis:</h3>
+            <h3>Hasil Input :</h3>
             <input type="text" id="hasilInput" placeholder="Peragakan huruf..." readonly>
             <br>
             <button onclick="document.getElementById('hasilInput').value = ''" style="margin-top:10px; padding:5px 15px; cursor:pointer;">Hapus</button>
         </div>
         
-        <p class="status">ℹ️ Tahan gerakan tangan selama 3 detik untuk mengetik.</p>
+        <p class="status">Tahan gerakan tangan selama 3 detik untuk mengetik.</p>
     </div>
 
     <script type="text/javascript">
